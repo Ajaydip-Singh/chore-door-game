@@ -12,4 +12,12 @@ doorImage2.onclick = () => {
     doorImage2.src = botDoorPath;
 }
 
+let doorImage3 = document.getElementById('door3');
+
+doorImage3.onclick = () => {
+    doorImage3.src = botDoorPath;
+}
+
+
+
 
