@@ -1,6 +1,7 @@
 body {
   background-color: #010165;
-  margin: 0px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .header {
@@ -38,10 +39,11 @@ body {
   font-family: 'Work Sans';
   font-size: 14px;
   color: #ffffff;
+  text-align: left;
 }
 
 .door-row {
-  text-align: center;
+  display: inline-block;  
 }
 
 .door-frame {
