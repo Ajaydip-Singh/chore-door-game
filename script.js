@@ -7,8 +7,17 @@ let openDoor1;
 let openDoor2;
 let openDoor3;
 let startButton = document.getElementById('start');
+let currentlyPlaying = true;
 
 
+
+const isBot = (door) => {
+    if (door.src === botDoorPath) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
 const isClicked = (door) => {
     if (door.src === closedDoorPath) {
@@ -18,10 +27,12 @@ const isClicked = (door) => {
     }
 };
 
-const playDoor = () => {
+const playDoor = (door) => {
     numClosedDoors--;
     if (numClosedDoors === 0) {
         gameOver('win');
+    } else if (isBot(door)) {
+        gameOver();
     }
 };
 
@@ -43,35 +54,54 @@ const randomChoreDoorGenerator = () => {
     }
 };
 
-randomChoreDoorGenerator();
-
 let doorImage1 = document.getElementById('door1');
 doorImage1.onclick = () => {
-    if (!isClicked(doorImage1)) {
+    if (!isClicked(doorImage1) && currentlyPlaying === true) {
         doorImage1.src = openDoor1;
-        playDoor();
+        playDoor(doorImage1);
     }
 };
 
 let doorImage2 = document.getElementById('door2');
 doorImage2.onclick = () => {
-    if (!isClicked(doorImage2)) {
+    if (!isClicked(doorImage2) && currentlyPlaying === true) {
         doorImage2.src = openDoor2;
-        playDoor();
+        playDoor(doorImage2);
     }
 };
 
 let doorImage3 = document.getElementById('door3');
 doorImage3.onclick = () => {
-    if (!isClicked(doorImage3)) {
+    if (!isClicked(doorImage3) && currentlyPlaying === true) {
         doorImage3.src = openDoor3;
-        playDoor();
+        playDoor(doorImage3);
     }
 };
+
+const startRound = () => {
+    doorImage1.src = closedDoorPath;
+    doorImage2.src = closedDoorPath;
+    doorImage3.src = closedDoorPath;
+    numClosedDoors = 3;
+    startButton.innerHTML = "Good luck!";
+    currentlyPlaying = true;
+    randomChoreDoorGenerator();
+};
+
+startButton.onclick = () => {
+    if (currentlyPlaying === false) {
+        startRound();
+    }
+};
+
 
 const gameOver = (status) => {
     if (status === 'win') {
         startButton.innerHTML = "You win! Play again?";
+    } else {
+        startButton.innerHTML = "Game over! Play again?";
     }
+    currentlyPlaying = false;
 };
 
+startRound();
